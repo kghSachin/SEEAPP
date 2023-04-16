@@ -1,8 +1,12 @@
-import 'package:classtenapp/screens/home_screen.dart';
+import 'package:classtenapp/components/loading/loading_screen.dart';
+import 'package:classtenapp/screens/login_screen.dart';
+import 'package:classtenapp/state/auth/provider/is_loading_provider.dart';
+import 'package:classtenapp/state/auth/provider/is_loggedin_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -19,7 +23,24 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const HomePage(),
+      home: Consumer(
+        builder: (context, ref, child) {
+          ref.listen<bool>(isLoadingProvider, (_, isLoading) {
+            print(isLoading.toString());
+            if (isLoading) {
+              LoadingScreen.instance().show(context: context);
+            } else {
+              LoadingScreen.instance().hide();
+            }
+          });
+          final isLogged = ref.watch(isLoggedInProvider);
+          if (isLogged) {
+            return const RiverPodLogin();
+          } else {
+            return const RiverPodLogin();
+          }
+        },
+      ),
     );
   }
 }
