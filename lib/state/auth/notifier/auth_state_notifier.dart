@@ -10,15 +10,17 @@ class AuthStateNotifier extends StateNotifier<AuthState> {
     state = state.copiedWithIsLoading(true);
     try {
       final result = await authLogin.login(data);
-      if (result == AuthResult.success) {
-        print("balla xiryo vitra");
-      }
       state = AuthState(
-          isLoading: false,
-          token: "token jhikaula katei bata aaba ",
-          result: result);
+        isLoading: false,
+        token: Authenticator.userToken,
+        result: result,
+      );
+      if (result == AuthResult.success) {
+        // return true;
+      }
     } catch (e) {
       print(e.toString());
     }
+    // return false;
   }
 }

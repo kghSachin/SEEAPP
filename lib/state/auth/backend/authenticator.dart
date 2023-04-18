@@ -5,6 +5,7 @@ import 'package:http/http.dart' as http;
 import '../models/auth_result.dart';
 
 class Authenticator {
+  static String? userToken;
   const Authenticator();
 
   Future<AuthResult> register(data) async {
@@ -32,7 +33,7 @@ class Authenticator {
   }
 
   Future<AuthResult> login(data) async {
-    String fullUrl = "http://si-back.pi-innovations.com.np/api/v1/token/login";
+    String fullUrl = "http://si-api.sikshyashala.com/user/login/";
     try {
       http.Response response = await http.post(
         Uri.parse(fullUrl),
@@ -46,7 +47,12 @@ class Authenticator {
       print(response.statusCode);
       if (response.statusCode == 200 || response.statusCode == 201) {
         Map<String, dynamic> tokenData = jsonDecode(response.body);
-        print(tokenData['auth_token']);
+        print(tokenData['token']);
+        if (tokenData['token'] != null) {
+          userToken = tokenData['token'];
+        } else {
+          userToken = null;
+        }
         return AuthResult.success;
       }
       return AuthResult.failed;

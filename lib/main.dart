@@ -1,4 +1,5 @@
 import 'package:classtenapp/components/loading/loading_screen.dart';
+import 'package:classtenapp/screens/all_post_screen.dart';
 import 'package:classtenapp/screens/login_screen.dart';
 import 'package:classtenapp/state/auth/provider/is_loading_provider.dart';
 import 'package:classtenapp/state/auth/provider/is_loggedin_provider.dart';
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       home: Consumer(
         builder: (context, ref, child) {
           ref.listen<bool>(isLoadingProvider, (_, isLoading) {
-            print(isLoading.toString());
+            // print(isLoading.toString());
             if (isLoading) {
               LoadingScreen.instance().show(context: context);
             } else {
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
           });
           final isLogged = ref.watch(isLoggedInProvider);
           if (isLogged) {
-            return const RiverPodLogin();
+            return const MainScreen();
           } else {
             return const RiverPodLogin();
           }

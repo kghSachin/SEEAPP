@@ -1,4 +1,6 @@
+import 'package:classtenapp/screens/all_post_screen.dart';
 import 'package:classtenapp/state/auth/provider/auth_state_provider.dart';
+import 'package:classtenapp/state/services/postBackend/get_post.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -29,12 +31,25 @@ class _RiverPodLoginState extends ConsumerState<RiverPodLogin> {
   @override
   Widget build(BuildContext context) {
     final loginProvider = ref.watch(authStateProvider.notifier);
-    login() {
+    login() async {
       var data = {
-        'contact': emailController.text,
+        'email': emailController.text,
         'password': passwordController.text,
       };
-      loginProvider.login(data);
+      await loginProvider.login(data);
+      // if (logged == true) {
+      //   if (mounted) {
+      //     Navigator.of(context).push(
+      //       MaterialPageRoute(
+      //         builder: (context) => const MainScreen(),
+      //       ),
+      //     );
+      //   }
+      // }
+    }
+
+    retrive() {
+      GetPost().getPost();
     }
 
     return Scaffold(
@@ -55,7 +70,11 @@ class _RiverPodLoginState extends ConsumerState<RiverPodLogin> {
           ),
           TextButton(
             onPressed: login,
-            child: Text("Press me"),
+            child: const Text("Press me"),
+          ),
+          TextButton(
+            onPressed: retrive,
+            child: const Text("getPost"),
           )
         ],
       )),
