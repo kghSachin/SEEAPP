@@ -1,6 +1,6 @@
 import 'package:classtenapp/components/loading/loading_screen.dart';
-import 'package:classtenapp/screens/all_post_screen.dart';
-import 'package:classtenapp/screens/login_screen.dart';
+import 'package:classtenapp/screens/authpages/login_screen.dart';
+import 'package:classtenapp/screens/main_screen.dart';
 import 'package:classtenapp/state/auth/provider/is_loading_provider.dart';
 import 'package:classtenapp/state/auth/provider/is_loggedin_provider.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +18,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.dark,
-      title: 'Flutter Demo',
+      title: 'Shikshya Shala',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primaryColor: Colors.grey,
+        colorScheme: const ColorScheme.light(
+          primary: Colors.orangeAccent,
+          secondary: Colors.grey,
+        ),
+        textTheme: const TextTheme(
+          bodyLarge: TextStyle(
+            fontSize: 20,
+            color: Colors.black,
+          ),
+        ),
+        primarySwatch: Colors.deepPurple,
       ),
       home: Consumer(
         builder: (context, ref, child) {
@@ -36,7 +45,7 @@ class MyApp extends StatelessWidget {
           });
           final isLogged = ref.watch(isLoggedInProvider);
           if (isLogged) {
-            return const MainScreen();
+            return const HomePage3();
           } else {
             return const RiverPodLogin();
           }

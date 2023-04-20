@@ -10,6 +10,7 @@ class GetPost {
   Future<List<RetrivePostModel>> getPost() async {
     List<RetrivePostModel> postList = [];
     try {
+      print("header token to send is  ${Authenticator.userToken}");
       Uri url = Uri.parse(fullUrl);
       http.Response response = await http.get(url,
           headers: {"Authorization": "Token ${Authenticator.userToken!}"});
@@ -17,7 +18,7 @@ class GetPost {
       if (response.statusCode == 200) {
         print(response.body);
         // var body = response.body;
-        dynamic postlist = jsonDecode(response.body);
+        dynamic postlist = jsonDecode(response.body)['posts'];
         print(postlist);
 
         // print(response.body);
@@ -26,7 +27,7 @@ class GetPost {
 
         // print(response);
         // print(postlist);
-        for (var post in postlist['posts']) {
+        for (var post in postlist) {
           print(post);
           RetrivePostModel model = RetrivePostModel.fromMap(post);
           print(model);
