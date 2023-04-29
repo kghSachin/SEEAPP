@@ -1,3 +1,4 @@
+import 'package:classtenapp/screens/mainpages/add_post_screen.dart';
 import 'package:classtenapp/screens/mainpages/home_screen.dart';
 import 'package:classtenapp/screens/mainpages/notification_screen.dart';
 import 'package:classtenapp/screens/mainpages/profile_screen.dart';
@@ -27,13 +28,20 @@ class _HomePage3State extends ConsumerState<HomePage3> {
   Widget build(BuildContext context) {
     var navIndex = ref.watch(navProvider);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: PageStorage(
         bucket: bucket,
         child: pages[navIndex.index],
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.orangeAccent,
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => const CreatePost(),
+            ),
+          );
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
@@ -72,7 +80,7 @@ class _HomePage3State extends ConsumerState<HomePage3> {
                   ref.read(navProvider.notifier).onIndexChanged(2);
                 },
                 icon: Icon(
-                  Icons.note,
+                  Icons.notifications,
                   size: 30,
                   color:
                       navIndex.index == 2 ? Colors.orangeAccent : Colors.grey,

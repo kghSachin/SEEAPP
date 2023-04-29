@@ -8,6 +8,11 @@ import '../models/auth_result.dart';
 class Authenticator {
   static String? userToken;
   const Authenticator();
+  AuthResult logout() {
+    Future.delayed(const Duration(seconds: 2));
+    userToken = null;
+    return AuthResult.failed;
+  }
 
   Future<bool> register(data) async {
     String fullUrl = "http://si-api.sikshyashala.com/user/create/";
@@ -28,7 +33,7 @@ class Authenticator {
       }
       return false;
     } catch (error) {
-      print(error.toString());
+      print("oops Something went wrong!");
       return false;
     }
   }
@@ -50,7 +55,7 @@ class Authenticator {
         Map<String, dynamic> tokenData = jsonDecode(response.body);
         if (tokenData['token'] != null) {
           userToken = tokenData['token'];
-          print(userToken);
+          print("This is User token" + userToken.toString());
           return AuthResult.success;
         } else {
           userToken = null;

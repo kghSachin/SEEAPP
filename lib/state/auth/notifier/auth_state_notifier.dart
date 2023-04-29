@@ -6,6 +6,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class AuthStateNotifier extends StateNotifier<AuthState> {
   AuthStateNotifier() : super(const AuthState.unknown());
   final authLogin = const Authenticator();
+  logout() async {
+    state = state.copiedWithIsLoading(true);
+    final result = authLogin.logout();
+    state = AuthState(
+      isLoading: false,
+      token: Authenticator.userToken,
+      result: result,
+    );
+  }
+
   Future<bool> login(data) async {
     state = state.copiedWithIsLoading(true);
     try {

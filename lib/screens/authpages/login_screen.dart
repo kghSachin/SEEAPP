@@ -57,7 +57,7 @@ class _RiverPodLoginState extends ConsumerState<RiverPodLogin> {
           'email': emailController.text,
           'password': passwordController.text,
         };
-        // await loginProvider.login(data);
+        await loginProvider.login(data);
         if (await loginProvider.login(data) == true) {
           if (mounted) {
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(

@@ -9,7 +9,7 @@ class LoadingScreen {
   LoadingScreenController? _controller;
   void show({
     required BuildContext context,
-    String text = "loading...",
+    String text = "Loading...",
   }) {
     if (_controller?.update(text) ?? false) {
       return;
@@ -45,7 +45,7 @@ class LoadingScreen {
         child: Center(
           child: Container(
             constraints: BoxConstraints(
-              maxHeight: size.height * 0.8,
+              maxHeight: size.height * 0.9,
               maxWidth: size.width * 0.8,
               minWidth: size.width * 0.5,
             ),
@@ -63,10 +63,18 @@ class LoadingScreen {
                     const SizedBox(
                       height: 10,
                     ),
-                    const CircularProgressIndicator(),
+                    const CircularProgressIndicator(
+                      color: Colors.orangeAccent,
+                    ),
                     const SizedBox(
                       height: 20,
                     ),
+                    // const Text(
+                    //   "Loading...",
+                    //   style: TextStyle(
+                    //     color: Colors.black,
+                    //   ),
+                    // ),
                     StreamBuilder<String>(
                       stream: textController.stream,
                       builder: (context, snapshot) {

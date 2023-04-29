@@ -54,14 +54,11 @@ class HomeScreen extends ConsumerWidget {
           data: (data) {
             print(data.length);
             return ListView.builder(
-                itemCount: 100,
+                itemCount: data.length,
                 itemBuilder: (BuildContext context, int index) {
                   return PostDisplayWidget(
-                    title: data[0].title,
-                    description: data[0].description +
-                        data[0].createdAt +
-                        data[0].updatedAt,
-                  );
+                      title: data[index].title,
+                      description: data[index].description);
                 });
           },
           error: (error, stackTrace) {

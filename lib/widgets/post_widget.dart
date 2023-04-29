@@ -1,3 +1,4 @@
+import 'package:classtenapp/widgets/post_detail_view.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -42,19 +43,32 @@ class PostDisplayWidget extends StatelessWidget {
                 child: Text(
                   title,
                   style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
                 ),
               ),
               SizedBox(
                 width: size.width / 1.6,
-                child: Text(
-                  description,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => PostDetailView(
+                          description: description,
+                          title: title,
+                        ),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    description,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
+                  ),
                 ),
               ),
               const SizedBox(
